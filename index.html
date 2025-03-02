@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep's Portfolio | AI Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Bruno+Ace+SC&family=Pixelify+Sans:wght@400..700&family=Racing+Sans+One&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #FF9900;
+      --secondary-color: #333;
+      --light-gray: #f5f5f5;
+      --medium-gray: #888;
+      --dark-gray: #555;
+      --radius: 12px;
+      --padding: 2rem;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Bruno Ace SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      color: var(--secondary-color);
+      background-color: white;
+    }
+
+    html, body, section {
+      block-size: 100%;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      padding: var(--padding);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-title {
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 4px;
+      background-color: var(--primary-color);
+      bottom: -10px;
+      left: 0;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 1rem 2rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav a {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 0.5rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: var(--transition);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav a.active {
+      color: var(--primary-color);
+    }
+
+    .nav a.active::after {
+      width: 100%;
+    }
+
+    .nav a:not(.active) {
+      color: var(--dark-gray);
+    }
+
+    /* Home section */
+    .home-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 6rem;
+    }
+
+    .about-me {
+      padding-right: 2rem;
+    }
+
+    .about-me h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-me h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .about-me p {
+      color: var(--medium-gray);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      margin-right: 1rem;
+    }
+
+    .cta-button:hover {
+      background-color: #e58b00;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+    }
+
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-img {
+      width: 80%;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .profile-img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Skills section */
+    .skills-section {
+      padding-top: 6rem;
+    }
+
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .skill-card {
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .skill-card h3 {
+      text-transform: uppercase;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .skill-card h3::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 3px;
+      background-color: var(--primary-color);
+      bottom: -8px;
+      left: 0;
+    }
+
+    .skill-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-bar-container {
+      background-color: var(--light-gray);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .skill-bar {
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 5px;
+      transition: width 1.5s ease-in-out;
+    }
+
+    .html { width: 95%; }
+    .css { width: 85%; }
+    .js { width: 70%; }
+    .python { width: 90%; }
+    .ml { width: 85%; }
+    .nlp { width: 80%; }
+    .penetration { width: 75%; }
+    .network { width: 70%; }
+    .security { width: 80%; }
+
+    /* Projects section */
+    .projects-section {
+      padding-top: 6rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background-color: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-content p {
+      color: var(--medium-gray);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-tag {
+      background-color: var(--light-gray);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Contact section */
+    .contact-section {
+      padding-top: 6rem;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .contact-text h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-text p {
+      color: var(--medium-gray);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      align-self: flex-start;
+    }
+
+    .submit-btn:hover {
+      background-color: #e58b00;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-link {
+      color: white;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-text {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 1024px) {
+      .home-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-me {
+        padding-right: 0;
+        order: 2;
+      }
+
+      .profile-container {
+        margin-bottom: 2rem;
+        order: 1;
+      }
+
+      .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      :root {
+        --padding: 1.5rem;
+      }
+
+      .nav {
+        gap: 15px;
+      }
+
+      .nav a {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+      }
+
+      .about-me h1 {
+        font-size: 2.5rem;
+      }
+
+      .skills-container,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-container">
+    <div class="nav">
+      <a href="#home" class="active">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <section id="home" class="home-section">
+    <div class="about-me">
+      <h1>Hi, I'm Deep</h1>
+      <h2>AI Developer & Ethical Hacker</h2>
+      <p>I am a passionate AI developer currently pursuing a Bachelor of Computer Applications (BCA) degree. My focus is on creating intelligent solutions through machine learning and natural language processing while also specializing in cybersecurity and ethical hacking.</p>
+      <a href="#contact" class="cta-button">Contact Me</a>
+      <a href="#projects" class="cta-button">View Projects</a>
+    </div>
+    
+    <div class="profile-container">
+      <img src="mee.png" alt="Deep's Profile" class="profile-img">
+    </div>
+  </section>
+  
+  <section id="skills" class="skills-section">
+    <h2 class="section-title">Skills</h2>
+    
+    <div class="skills-container">
+      <div class="skill-card">
+        <h3>Frontend Development</h3>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>HTML</span>
+            <span>95%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar html"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>CSS</span>
+            <span>85%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar css"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>JavaScript</span>
+            <span>70%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar js"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="skill-card">
+        <h3>AI Development</h3>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Python</span>
+            <span>90%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar python"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Machine Learning</span>
+            <span>85%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar ml"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Natural Language Processing</span>
+            <span>80%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar nlp"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="skill-card">
+        <h3>Ethical Hacking</h3>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Penetration Testing</span>
+            <span>75%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar penetration"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Network Analysis</span>
+            <span>70%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar network"></div>
+          </div>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-info">
+            <span>Security Auditing</span>
+            <span>80%</span>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar security"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects-section">
+    <h2 class="section-title">Projects</h2>
+    
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="AI Chatbot.png" alt="AI Chatbot" class="project-img">
+        <div class="project-content">
+          <h3>Intelligent Chatbot Assistant</h3>
+          <p>Developed an AI chatbot that uses NLP to understand and respond to user queries with context-aware responses.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">NLP</span>
+            <span class="project-tag">Machine Learning</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">View Demo</a>
+            <a href="#" class="project-link">Source Code</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <img src="Security Tool Network Vulnerability Scanner.png" alt="Security Tool" class="project-img">
+        <div class="project-content">
+          <h3>Network Vulnerability Scanner</h3>
+          <p>Built a security tool that scans networks for vulnerabilities and provides detailed reports with remediation steps.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Network Security</span>
+            <span class="project-tag">Ethical Hacking</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Documentation</a>
+            <a href="#" class="project-link">Source Code</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <img src="Personal Website Responsive Web Portfolio.png" alt="Personal Website" class="project-img">
+        <div class="project-content">
+          <h3>Responsive Web Portfolio</h3>
+          <p>Designed and developed a personal portfolio website with modern HTML, CSS, and JavaScript techniques.</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Live Site</a>
+            <a href="#" class="project-link">Source Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2 class="section-title">Contact</h2>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h3>Location</h3>
+            <p>Mumbai, Maharashtra, India</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-text">
+            <h3>Email</h3>
+            <p>deep@example.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-text">
+            <h3>Phone</h3>
+            <p>+91 98765 43210</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">🔗</div>
+          <div class="contact-text">
+            <h3>Social</h3>
+            <p>LinkedIn • GitHub • Twitter</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Enter subject">
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Enter your message"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="#" class="social-link">📱</a>
+        <a href="#" class="social-link">📧</a>
+        <a href="#" class="social-link">🔗</a>
+        <a href="#" class="social-link">💻</a>
+      </div>
+      <p class="footer-text">© 2025 Deep. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple JavaScript to handle smooth scrolling and active navigation
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('.nav a');
+      
+      // Update active link based on scroll position
+      window.addEventListener('scroll', () => {
+        let current = '';
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (window.pageYOffset >= sectionTop - 100) {
+            current = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').slice(1) === current) {
+            link.classList.add('active');
+          }
+        });
+      });
+      
+      // Smooth scroll to section when clicking nav links
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href');
+          document.querySelector(targetId).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
